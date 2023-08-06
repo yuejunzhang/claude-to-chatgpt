@@ -9,13 +9,20 @@ import (
 // OpenaiToClaudeParams 转换成claude的参数
 func OpenaiToClaudeParams(chatCompletionRequest model.ChatCompletionRequest) *model.ChatMessageRequest {
 	history := chatCompletionRequest.Messages
-	text := history[len(history)-1]
-	// history := completionMessages[:len(completionMessages)-1]
-	textMarshal, err := json.Marshal(text)
-	if err != nil {
-		fmt.Println("Text marshal err:", err)
+	text := history[len(history)-1].Content
+	prompt := ""
+	if chatCompletionRequest.Messages[0].Role == "system" {
+		prompt = chatCompletionRequest.Messages[0].Content
+	} else {
+		prompt = text
 	}
-	textMessage := string(textMarshal)
+
+	// history := completionMessages[:len(completionMessages)-1]
+	// textMarshal, err := json.Marshal(text)
+	// if err != nil {
+	// 	fmt.Println("Text marshal err:", err)
+	// }
+	// textMessage := string(textMarshal)
 	historyMessage := ""
 	if len(history) > 0 {
 		historyMarshal, err := json.Marshal(history)
@@ -24,5 +31,5 @@ func OpenaiToClaudeParams(chatCompletionRequest model.ChatCompletionRequest) *mo
 		}
 		historyMessage = string(historyMarshal)
 	}
-	return model.NewChatMessageRequest(textMessage, historyMessage)
+	return model.NewChatMessageRequest(prompt, text, historyMessage)
 }
