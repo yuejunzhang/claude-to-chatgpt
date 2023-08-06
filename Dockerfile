@@ -12,8 +12,6 @@ RUN go env -w GO111MODULE=on \
 
 FROM alpine:latest
 
-LABEL MAINTAINER="oldwei@oldweipro@gmail.com"
-
 WORKDIR /go/src/github.com/oldweipro/claude-to-chatgpt
 
 COPY --from=0 /go/src/github.com/oldweipro/claude-to-chatgpt ./
