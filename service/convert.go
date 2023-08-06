@@ -8,9 +8,9 @@ import (
 
 // OpenaiToClaudeParams 转换成claude的参数
 func OpenaiToClaudeParams(chatCompletionRequest model.ChatCompletionRequest) *model.ChatMessageRequest {
-	completionMessages := chatCompletionRequest.Messages
-	text := completionMessages[len(completionMessages)-1]
-	history := completionMessages[:len(completionMessages)-1]
+	history := chatCompletionRequest.Messages
+	text := history[len(history)-1]
+	// history := completionMessages[:len(completionMessages)-1]
 	textMarshal, err := json.Marshal(text)
 	if err != nil {
 		fmt.Println("Text marshal err:", err)
