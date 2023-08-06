@@ -2,7 +2,7 @@ package service
 
 import (
 	"encoding/json"
-	"fmt"
+	"fmt" 
 	"github.com/oldweipro/claude-to-chatgpt/model"
 )
 
