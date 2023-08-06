@@ -20,7 +20,7 @@ type MessageLimit struct {
 	Type string `json:"type"`
 }
 
-func NewChatMessageRequest(text, history string) *ChatMessageRequest {
+func NewChatMessageRequest(prompt, text, history string) *ChatMessageRequest {
 	var attachments []Attachments
 	if history != "" {
 		attachments = append(attachments, Attachments{
@@ -32,7 +32,7 @@ func NewChatMessageRequest(text, history string) *ChatMessageRequest {
 
 	}
 	return &ChatMessageRequest{
-		Completion:       NewCompletion(text),
+		Completion:       NewCompletion(prompt),
 		OrganizationUuid: "",
 		ConversationUuid: "",
 		Text:             text,
